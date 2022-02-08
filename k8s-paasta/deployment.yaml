@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: paas-9259d4fb-5313-4c32-ac42-558f9c550794-caas
+  name: discovery-deployment
+  annotations:
+    kubernetes.io/change-cause: "Initialized by manifest files."
+  labels:
+    env: production
+    tier: backend
+    app: discovery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      env: production
+      tier: backend
+      app: discovery
+  template:
+    metadata:
+      labels:
+        env: production
+        tier: backend
+        app: discovery
+    spec:
+      containers:
+        - name: discovery
+          image: egovframe/msa-discovery:k8s
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              cpu: 700m
+              memory: 1024Mi
+          startupProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8761
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            successThreshold: 1
+            failureThreshold: 36
+          # livenessProbe:
+          #   httpGet:
+          #     path: /actuator/health
+          #     port: 8761
+          #   initialDelaySeconds: 10
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8761
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "k8s"
+          ports:
+            - containerPort: 8761

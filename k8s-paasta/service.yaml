@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: paas-9259d4fb-5313-4c32-ac42-558f9c550794-caas
+  name: discovery
+  labels:
+    env: production
+    tier: backend
+    app: discovery
+spec:
+  ports:
+    - port: 8761
+      targetPort: 8761
+  selector:
+    env: production
+    tier: backend
+    app: discovery
