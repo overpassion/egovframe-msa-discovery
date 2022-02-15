@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  namespace: jenkins
+  name: discovery-ingress
+  labels:
+    env: production
+    tier: backend
+    app: discovery
+    name: discovery-ingress
+spec:
+  rules:
+    - host: 'discovery.192.168.100.66.nip.io' # TODO
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: discovery
+              servicePort: 8761
