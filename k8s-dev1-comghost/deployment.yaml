@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: jenkins
   name: discovery-deployment
   annotations:
     kubernetes.io/change-cause: "Initialized by manifest files."
@@ -27,7 +28,7 @@ spec:
     spec:
       containers:
         - name: discovery
-          image: overpassion/egovframe-msa-edu-backend-discovery:latest # TODO
+          image: overpassion/egovframe-msa-backend-discovery:latest # TODO
           imagePullPolicy: Always
           ports:
             - containerPort: 8761
