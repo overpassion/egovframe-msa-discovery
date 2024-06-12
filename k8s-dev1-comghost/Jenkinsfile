@@ -27,7 +27,7 @@ podTemplate(
             sh "./gradlew wrap --gradle-version=7.3 --daemon"
             sh "./gradlew bootJar"
         }
-
+/*
         stage("docker") {
             container("docker") {
                 withCredentials([usernamePassword(credentialsId: "${dockerhubCredentialsId}", passwordVariable: "password", usernameVariable: "username")]) {
@@ -37,7 +37,7 @@ podTemplate(
                 }
             }
         }
-
+*/
         stage( "kubernetes" ) {
             container("kubectl") {
                 sh "kubectl rollout restart deployment ${projectId}-deployment || kubectl apply -f ./k8s-dev1-comghost"
