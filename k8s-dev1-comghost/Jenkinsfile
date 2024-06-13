@@ -17,7 +17,7 @@ podTemplate(
         // docker
         def dockerhubCredentialsId = "username-password-dockerhub" // 젠킨스 도커허브 자격증명
         def dockerImage = "overpassion/egovframe-msa-backend-${projectId}" // 도커허브 이미지
-        def dockerImageTag = "k8s" // 도커허브 이미지 태그
+        def dockerImageTag = "k8sv2" // 도커허브 이미지 태그
 
         stage("git") {
             checkout scm
@@ -27,7 +27,7 @@ podTemplate(
             sh "./gradlew wrap --gradle-version=7.3 --daemon"
             sh "./gradlew bootJar"
         }
-/*
+
         stage("docker") {
             container("docker") {
                 withCredentials([usernamePassword(credentialsId: "${dockerhubCredentialsId}", passwordVariable: "password", usernameVariable: "username")]) {
@@ -37,7 +37,7 @@ podTemplate(
                 }
             }
         }
-*/
+
         stage( "kubernetes" ) {
             container("kubectl") {
                 sh "kubectl rollout restart deployment ${projectId}-deployment -n jenkins || kubectl apply -f ./k8s-dev1-comghost"
