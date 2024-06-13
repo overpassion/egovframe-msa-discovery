@@ -40,8 +40,8 @@ podTemplate(
 */
         stage( "kubernetes" ) {
             container("kubectl") {
-                sh "kubectl rollout restart deployment ${projectId}-deployment || kubectl apply -f ./k8s-dev1-comghost"
-                sh "kubectl annotate deployment.apps/${projectId}-deployment kubernetes.io/change-cause='Image updated at ${now} by ${env.BUILD_TAG}.'"
+                sh "kubectl rollout restart deployment ${projectId}-deployment -n jenkins || kubectl apply -f ./k8s-dev1-comghost"
+                sh "kubectl annotate deployment.apps/${projectId}-deployment kubernetes.io/change-cause='Image updated at ${now} by ${env.BUILD_TAG}.' -n jenkins"
             }
         }
     }
