@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
         - name: discovery
-          image: overpassion/egovframe-msa-backend-discovery:k8s # TODO
+          image: overpassion/egovframe-msa-backend-discovery:k8sv2 # TODO
           imagePullPolicy: Always
           ports:
             - containerPort: 8761
