@@ -10,7 +10,7 @@ metadata:
     name: discovery-ingress
 spec:
   rules:
-    - host: 'discovery.192.168.100.66.nip.io'
+    - host: 'discovery.192.168.100.64.nip.io'
       http:
         paths:
           - path: /
